@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 const root = process.cwd();
 const output = resolve(root, "static-site");
-const response = await fetch("http://localhost:3000/");
+const response = await fetch("http://localhost:3001/");
 
 if (!response.ok) {
   throw new Error(`Không thể đọc bản local: HTTP ${response.status}`);
@@ -13,6 +13,7 @@ let html = await response.text();
 html = html
   .replaceAll('href="/assets/', 'href="./assets/')
   .replaceAll('src="/assets/', 'src="./assets/')
+  .replaceAll('\"/assets/', '\"./assets/')
   .replaceAll('href="/favicon.svg"', 'href="./favicon.svg"')
   .replaceAll('href="/file.svg"', 'href="./file.svg"')
   .replaceAll('href="/globe.svg"', 'href="./globe.svg"')
